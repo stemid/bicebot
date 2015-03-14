@@ -1,0 +1,32 @@
+SHELL=/bin/sh
+CC=gcc
+LD=ld
+LDFLAGS+=-rpath . -L.
+CFLAGS+=-Wall -pedantic -ansi $(CONF_SETPROCTITLE)
+LIBS+=-lircbot
+INCLUDES+=-Isrc -I..
+HEADERS=bicebot.h ircbot.h
+
+SRC=src
+SRC_MODS:=$(SRC)/mods
+
+# TODO: some sort of PREFIX to install elsewhere
+# also install target
+MODULES=modules
+
+export
+
+all:
+	$(MAKE) -f $(SRC)/Makefile
+	$(MAKE) -C $(SRC_MODS)
+	@echo 'All done, now run bicebot.' 
+
+modules:
+	$(MAKE) -C $(SRC_MODS)
+
+# TODO: so you can rebuild only modules
+clean-modules:
+	rm -f $(MODULES)/*.so $(SRC_MODS)/*.o
+
+clean:
+	rm -f *.o bicebot *.so $(MODULES)/*.so $(SRC_MODS)/*.o

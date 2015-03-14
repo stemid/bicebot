@@ -1,0 +1,26 @@
+#!/bin/sh
+# simple and quick solution to some small problems
+
+export LD_LIBRARY_PATH=.:..:../..
+
+echo -n "Testing for setproctitle..."
+
+cat >conftest.c <<CFEOF
+#include <sys/types.h>
+#include <unistd.h>
+
+int main(void) {
+	setproctitle(NULL);
+	exit(0);
+}
+CFEOF
+
+if { eval cc conftest.c >&1 2>&1; }; then
+	echo "Yes"
+	cat Makefile.in | sed 's/$(CONF_SETPROCTITLE)/-DSETPROCTITLE/' > Makefile
+else echo "No"
+fi
+
+rm conftest.c a.out
+
+echo "Now run gmake"

@@ -1,0 +1,42 @@
+== ABOUT ==
+
+It's a simple ircbot i wrote because some people wanted a !seen bot in their channel. 
+ 
+I've made it easy for myself to add modules to it so i'm sure others can do it to. 
+I will be adding some more modules to it soon because they wanted some game or 
+something and i'm pretty bored. 
+
+Maybe an info module to later, where you can save strings and fetch them with keywords. 
+
+It uses ndbm which i have available on FreeBSD where i wrote it. I've only tested it 
+on FreeBSD so if you have any problems, holla at me and i'll see if i can help. 
+
+Have fun!
+
+== COMPILING ==
+
+To compile just run this on the command line;
+./configure && gmake
+
+You don't have to run the configure script, all it does is test for setproctitle on your 
+system. If you skip it then just run `cp Makefile.in Makefile` and you're good to go. 
+
+This requires GNU Make, it's often installed as gmake but can also be the default make. 
+
+You can't recompile just the modules yet but you can clean shit up with `gmake clean`. 
+
+The leave module uses setproctitle, If available, so you can define SETPROCTITLE in 
+the Makefile or CFLAGS to compile the modules with it. If you have setproctitle it 
+is highly recommended, just check if you have it's manual with `man 3 setproctitle`.
+`setenv CFLAGS -DSETPROCTITLE` in tcsh or just edit the Makefile
+
+Then just run ./bicebot and read some help info. A good example would 
+be: ./bicebot -c #channel -n bicebot irc.server.tld
+
+== MODULES ==
+
+You can write your own modules, but if you want your own license you have to append it 
+to the top of each module you write. Check out the smaller modules for examples, i wrote 
+them to help people understand how simple it is. 
+ 
+/ nocturnal [at] swehack [dot] se
